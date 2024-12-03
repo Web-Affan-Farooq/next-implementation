@@ -1,0 +1,21 @@
+1. where are the all elements rendered in react when I called root.render();
+ans: div with id "root"
+
+2. what would show up in console If I were to run this line of code console.log(<h1>This is div</h1>)
+ans: instance of object containing properties of that element i.e element name etc
+
+3. what's wrong with this code 
+root.render(
+    <h1>Hello</h1>
+    <h3>Hi</h3>
+)
+
+ans: This shows an error. All the siblings at same level have to be rendered inside a parent element in react
+
+4. what does it mean "imperative and "declarative"
+ans : Imperative means we provide to the point instructions to the computer what to do exactly . In this way , we have to write each and every instructions, each and every feature that our application does have . While in "declarative " method , We use some libraries and open source tools or pre built source code for building features in our react application.
+
+5. what does it mean "composable"
+ans : Composabel means take a larger section and break it down to smaller components in react.
+
+

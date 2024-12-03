@@ -1,0 +1,39 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+button {
+  transition: all 0.2s ease-in-out;
+  z-index: 1;
+}
+button:active {
+transform: scale(0.9);
+}
+button::after {
+  content: "";
+  position: absolute;
+   border-radius: 50%;
+   background: white;
+   width: 40px;
+   /* animation: move 1s ease-in-out 1s infinite; */
+   height: 40px;
+   z-index: -1;
+}
+
+/* .content::after {
+  content: "";
+  top: 0px;
+  left: 0;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background: green;
+  animation: move 10s ease-in-out 1s infinite;
+  transition: all 1s ease-in-out;
+} */
