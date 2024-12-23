@@ -1,7 +1,8 @@
 ## Static Parameters In Nextjs 15:
 
 # Basic overview:
-static parameters are the dynamic parameters that are created on build time
+static parameters are the dynamic parameters that are created on build time. It is use to generate all the possible parameters values on build time resulting in faster responses 
+
 
 ## Implementation:
 
@@ -16,7 +17,6 @@ static parameters are the dynamic parameters that are created on build time
 
 # Step-4: 
  Create an async function called generateStaticParams  
-
 
 # Step-4: 
  create a async function and return resolved required parameters value from that function
