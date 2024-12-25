@@ -1,5 +1,5 @@
 import React from 'react';
-import type { Params } from 'next/dist/server/request/params';
+
 // export async function generateStaticParams() {
 //     const response = await fetch('https://jsonplaceholder.typicode.com/todos');
 //     const data = await response.json();
@@ -10,7 +10,12 @@ import type { Params } from 'next/dist/server/request/params';
 // }
 
 
-const ProductsDynamicSegment = ({params}: {params: Promise<{id:string}>}) => {
+
+interface Params {
+  params: Promise<{id:string}>;
+}
+
+const ProductsDynamicSegment = ( {params} : Params) => {
 
   const resolved = React.use(params)
   console.log(resolved);

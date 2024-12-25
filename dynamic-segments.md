@@ -3,130 +3,112 @@
 # Step-1: 
  first create a dynamic segment like products/[id]/page.tsx
 
+ create a route which serves as a parent route for dynamic implementation E.g products and create it's corrensponding <b>page.tsx</b> file also
+
 # Step-2: 
   create and render a component
 
-# Step-3: 
- destructure a parameter and import type "Params" from next/dist/server/request/params . These will act as type declarations for params parameter
-
-# Step-4: 
- create a async function and return resolved required parameters value from that function
-
-# Step-5: 
- wrap that function in React.use() and store in variable. Now this variable contains a required value that you're going to access it using simple params.YOUR_DYNAMIC_SEGMENT_NAME
-
-# Step-6: 
- use it where you want in your component.
-
-
-## code for dynamic segments:
-
-import React from "react";
-import type { Params } from "next/dist/server/request/params";
-
-const DynamicComponent = ({ params }: { params: Params }) => {
-
-    const handleParams = async () => {
-        let requiredParams = await params.id;
-        return requiredParams; 
-    }
-    let parameters = React.use(handleParams());
-
-
-  return (
-    <div>This is dynamic page no. {parameters}</div>
-  );
-};
-
-export default DynamicComponent;
-
-
-
-
-## Q1. How can you create a dynamic route in Next.js? Give an example.
-
-# Follow-up: How do you access dynamic route parameters?
-
-
-
-
-
-----------------------------------------------------
-
-`
-import React from 'react';
-import type { Params } from 'next/dist/server/request/params';
-// export async function generateStaticParams() {
-//     const response = await fetch('https://jsonplaceholder.typicode.com/todos');
-//     const data = await response.json();
-
-//     return data.map((data:any) => {
-
-//     })
-// }
-
-
-const ProductsDynamicSegment = ({params}: {params: Promise<{id:string}>}) => {
-
-  console.log(params);
+  ``` bash
+  const ProductsDynamicSegment = () => {
   
   return (
-    <div>ProductsDynamicSegment</div>
+    <div>
+        <br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+        ProductsDynamicSegment</div>
   )
 }
 
 export default ProductsDynamicSegment
 
-/*
-import { Metadata } from 'next';
+  ```
 
-// Define props for the page component
-interface ProductPageProps {
-  params: { id: string }; // Dynamic route parameter
-}
+# Step-3: 
+ destructure a parameter in the component named as "params"
 
-// Fetch all the possible `id` values for pre-rendering
-export async function generateStaticParams() {
-  const products = await fetch('https://api.example.com/products')
-    .then((res) => res.json());
-
-  return products.map((product: { id: number }) => ({
-    id: product.id.toString(), // Convert `id` to a string
-  }));
-}
-
-// Optional: Add metadata for the page
-export async function generateMetadata({ params }: ProductPageProps): Promise<Metadata> {
-  const product = await fetch(`https://api.example.com/products/${params.id}`)
-    .then((res) => res.json());
-
-  return {
-    title: product ? product.name : 'Product Not Found',
-    description: product ? product.description : 'This product does not exist.',
-  };
-}
-
-// The dynamic page component
-const ProductPage = async ({ params }: ProductPageProps) => {
-  const product = await fetch(`https://api.example.com/products/${params.id}`)
-    .then((res) => res.json());
-
-  // Handle the case where the product is not found
-  if (!product) {
-    return <h1>Product not found</h1>;
-  }
-
+ ``` javascript
+ const ProductsDynamicSegment = ( {params}) => {
+  
   return (
     <div>
-      <h1>{product.name}</h1>
-      <p>{product.description}</p>
-      <p>Price: ${product.price}</p>
-    </div>
-  );
-};
+        
+        
+        <br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+        ProductsDynamicSegment</div>
+  )
+}
 
-export default ProductPage;
+export default ProductsDynamicSegment
 
- */
+```
+then outside the component, create an interface called "Params"
+
+``` javascript
+// interface for parameters
+
+interface Params {
+  params: Promise<{id:string}>;
+}
+
+```
+
+also we have to use built in "use " function in react to resolve these parameters of type "promise" to a predicted "string". Note that React.use function is used for resolving small promises within our app. use it as 
+
+``` javascript
+interface Params {
+  params: Promise< {id:string} >; // shows that when the promise is resolved it will give an object containing string typed id
+}
+
+const ProductsDynamicSegment = ( {params} : Params) => {
+
+  const resolved = React.use(params)   // React.use for resolving promise 
+  console.log(resolved); // checking the resolved parameters. displays an object cotaining our parameter values
   
-`
+  return (
+    <div>
+        <br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+        ProductsDynamicSegment {resolved.id}</div>
+  )
+}
+
+export default ProductsDynamicSegment
+```
+
+
+## code for dynamic segments:
+
+``` javascript
+import React from 'react';
+
+interface Params {
+  params: Promise<{id:string}>;
+}
+
+const ProductsDynamicSegment = ( {params} : Params) => {
+
+  const resolved = React.use(params)
+  console.log(resolved);
+  
+  return (
+    <div className='text-white'>
+        
+        
+        <br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+        ProductsDynamicSegment {resolved.id}</div>
+  )
+}
+
+export default ProductsDynamicSegment
+```
+
+<br/>
+<br/>
+<br/>
+
+## Sharp your skills:
+
+<b> Q1. How can you create a dynamic route in Next.js? Give an example.
+</b>
+
+<b>Follow-up: How do you access dynamic route parameters?</b>
+
+<i>See [products route](/src/app/products/) for more consise</i>
