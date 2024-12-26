@@ -1,12 +1,24 @@
-import Section_1 from '@/components/Section-1/Section-1';
-import React from 'react';
+// import Section_1 from '@/components/Section-1/Section-1';
+// import React from 'react';
 
-const Home = () => {
+// const Home = () => {
+//   return (
+//     <div><br /><br /><br /><br /><br /><br /><br /><br />
+//       <Section_1/>
+//     </div>
+//   )
+// }
+
+// export default Home;
+
+import React from 'react'
+
+const page = () => {
   return (
-    <div><br /><br /><br /><br /><br /><br /><br /><br />
-      <Section_1/>
-    </div>
+    <div>page</div>
   )
 }
 
-export default Home;
+export default page
+
+

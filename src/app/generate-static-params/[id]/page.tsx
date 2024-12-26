@@ -1,5 +1,3 @@
-// "use client"; (not strictly necessary in modern React)
-
 import React , {useEffect} from 'react';
 
 interface Params {
