@@ -1,6 +1,6 @@
-## NEXT.JS compiled notes 
+## NEXT.JS and Sanity compiled notes 
 
-Explore problems and solutions related to nextjs 15
+Notes on NextJS 15 and Sanity
 
 1. [Dynamic segments in nextjs 15](/guides/dynamic-segments.md)
 2. [Static parameters in nextjs 15](/guides/static-params.md)
@@ -12,7 +12,11 @@ Explore problems and solutions related to nextjs 15
 
 remaining:
 
-different methods
+sanity
+axios
+redux 
+zustand
+zod
 generating metadata
 usestate 
 useffect
@@ -21,7 +25,9 @@ usecontext
 usecallback
 suspense
 api routes and endpoints
-sanity
-loading error
+loading 
+error
+redirecting
+useRouter()
 usereducer
 usememo
