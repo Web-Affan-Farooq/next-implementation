@@ -9,6 +9,7 @@ Notes on NextJS 15 and Sanity
 5. [Routing in NextJS](/guides/routing.md)
 6. [Route grouping in NextJS](/guides/route-groups.md)
 7. [Fetching API in NextJS](/guides/fetch.md)
+8. [useState() hook in React](/guides/fetch.md)
 
 remaining:
 
@@ -31,3 +32,4 @@ redirecting
 useRouter()
 usereducer
 usememo
+middleware in nextjs
