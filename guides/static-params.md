@@ -83,7 +83,11 @@ export async function generateStaticParams(): Promise<{ params: { id: number } }
 4. Make sure to explicitly type function 
 
 ``` Javascript 
-export async function generateStaticParams(): Promise<{ params: { id: number } }[]> { }
+export async function generateStaticParams(): Promise<{ 
+  params: {
+     id: number
+    } 
+  }[]> { }
 
 ```
 <br/>

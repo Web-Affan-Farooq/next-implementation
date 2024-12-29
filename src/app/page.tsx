@@ -11,11 +11,23 @@
 
 // export default Home;
 
-import React from 'react'
+"use client";
+
+import React, { useState } from 'react';
 
 const Home = () => {
+  const [APIData, setAPIData] = useState<string[]>([
+    "Mango",
+    "orange",
+    "banana",
+    "peach"
+  ]);
+
   return (
-    <div>Home</div>
+    <div className='text-white'>
+      <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+      
+    </div>
   )
 }
 
