@@ -10,7 +10,13 @@ Notes on NextJS 15 and Sanity
 6. [Route grouping in NextJS](/guides/route-groups.md)
 7. [Fetching API in NextJS](/guides/fetch.md)
 8. [useState() hook in React](/guides/fetch.md)
+9. [Route handlers in Next.JS](/guides/route-handlers.md)
 
+Frontend functionalities for dynamic ecommerce website
+headless cms
+apis for dynamic product data fetching inventory and price updates
+shipment API with delivery charges and live product tracker from aliExpress, easypost, shippo or any other
+payment integration and authentication is not required
 remaining:
 
 sanity

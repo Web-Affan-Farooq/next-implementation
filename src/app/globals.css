@@ -10,6 +10,13 @@
 }
 button {
   transition: all 0.2s ease-in-out;
+}
+button:active {
+  
+  transform: scale(0.9);
+  }
+/* button {
+  transition: all 0.2s ease-in-out;
   z-index: 1;
 }
 button:active {
@@ -21,10 +28,9 @@ button::after {
    border-radius: 50%;
    background: white;
    width: 40px;
-   /* animation: move 1s ease-in-out 1s infinite; */
    height: 40px;
    z-index: -1;
-}
+} */
 
 /* .content::after {
   content: "";

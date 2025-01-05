@@ -17,10 +17,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <div className="bg-custom_1 w-full h-[120vh]">
-        <Header/>
+        <div>
+          {/*className="bg-custom_1 w-full h-[120vh]" */}
+        {/* <Header/> */}
         {children}
-        <Footer/>
+        {/* <Footer/> */}
         </div>
       </body>
     </html>
