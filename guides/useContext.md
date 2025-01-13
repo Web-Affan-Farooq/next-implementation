@@ -88,10 +88,14 @@ So there the entire page is filled with props and passing data which will lead t
 
 <h1>Repeating The Same Approach With <b>useContext</b></h1>
 
-Now repeat the same scenerio with useContext create a context in a new file.
-In this file create a component
+
+## Creating Context:
+Now repeat the same scenerio with useContext . Create a <b>Client component</b> in a new typescript file <b>context.ts</b> file and create a component in it as
 
 ``` javascript
+"use client";
+import React from "react";
+// will be created in context.ts
 const Context = () => {
     return (
         <div>component-1</div>
@@ -100,13 +104,33 @@ const Context = () => {
 export default Context;
  ```
 
- in react ,we know that each component recieves it's nested components as <b>Children</b> props . so remove all the existing content from this context component and pass the childrens props as
+ in react ,we know that each component recieves it's nested components as <b>Children</b> props . so destructure a new parameter in component called <b>"children"</b> 
 
   ``` javascript
-const Context = ({children}:React.ReactNode) => {
+  "use client";
+import React from "react";
+// will be created in context.ts
+const Context = ({children}) => {
     return (
         <div>
-        {childrens}
+        {children}
+        </div>
+    )
+}
+export default Context;
+ ```
+
+furthur more , the type of this children prop becomes react node as.
+
+  ``` javascript
+  "use client";
+
+import React from "react";
+// will be created in context.ts
+const Context = ({children}:{children:React.ReactNode}) => {
+    return (
+        <div>
+        {children}
         </div>
     )
 }
@@ -116,9 +140,11 @@ export default Context;
  now import <b>createContext</b> in your file and create a new context as 
 
    ``` javascript
+     "use client";
    import React {createContext} from "react;
+// will be created in context.ts
 
-   const myContext = createContext();
+   const myContext = createContext();  // context
 
 const Context = ({children}:React.ReactNode) => {
     return (
@@ -141,14 +167,16 @@ export default Context;
 
  
    ``` javascript
+     "use client";
    import React {createContext} from "react;
+// will be created in context.ts
 
-   const myContext = createContext();
+   const myContext = createContext();  // context
 
-const ContextProvider = ({children}:React.ReactElement) => {
+const ContextProvider = ({children}:React.ReactNode) => {
     return (
         <myContext.provider>
-        {childrens}
+        {children}
         </myContext.provider>
     )
 }
@@ -158,17 +186,19 @@ export default ContextProvider;
 The <code><span><</span><span>myContext.provider></span><span><</span><span>/myContext.provider></span></code> tag accepts a <b>value</b> prop that we have to pass. For now just create a state for storing data. This state helps us get data globally on any component and the provided setter function will helps us to update this state from anywhere in our app.
 
 ``` javascript
+     "use client";
    import React {createContext, useState} from "react;
+   // will be created in context.ts
 
-   const myContext = createContext();
+   const myContext = createContext();  // context
 
-const ContextProvider = ({children}:React.ReactElement) => {
+const ContextProvider = ({children}:React.ReactNode) => {
 
     const [nameState, setNameState] = useState<string>("muhammad affan"); // "nameState" state with setter function "setNameState"
 
     return (
         <myContext.provider>
-        {childrens}
+        {children}
         </myContext.provider>
     )
 }
@@ -178,7 +208,9 @@ export default ContextProvider;
 now pass array containing state <b>nameState</b> along with it's setter function <b>setNameState</b> to the value prop as
 
 ``` javascript
+"use client";
    import React {createContext, useState} from "react;
+// will be created in context.ts
 
    const myContext = createContext();
 
@@ -190,7 +222,7 @@ const ContextProvider = ({children}:{children:React.ReactNode}) => {
         <myContext.provider value={
             [nameState, setNameState] // passed an array of state along with it's setter function
             }>
-        {childrens}
+        {children}
         </myContext.provider>
     )
 }
@@ -199,15 +231,46 @@ export default ContextProvider;
 
  that's it. your context is created, now one more step is to explicitly type the states and all the context in our component because we are using typescript.
 
+ Note that the context stores a complete state inside it in the form of array containing state data and a setter function to update it. 
 
-``` javascript
+ ```typescript 
+// will be created in context.ts
+
+   const myContext = createContext(); // contains ["muhammad affan", setNameState()];
+
+ ```
+
+ Don't worry ,this is not the actual code. It is the pictorial representation of our context. The main point is data type of data stored in the state is <b>string</b> and the type of setter function is <b><code>SetStateAction<<span></span>string></code></b>.Also the the react has to update the state globally in every part of our app and specially in our <b>Virtual DOM</b> so that the type of setter function should be wrapped in <b>React.Dispatch<></b> to allow it to be change the value frequently see below. 
+
+ ``` javascript
+ // context.ts file
+   const myContext = createContext<[string, React.Dispatch<React.SetStateAction<string>>]>(); //attached tuple type [] first value is the data type of state and second is the React.Dispatch< SetStateAction<string> > type 
+ ```
+<br/>
+
+ Now the context accepts and initial value to be provided, leave it blank or if you're using react19 along with typescript , provide blank values as
+
+  <br/>
+
+ ``` javascript
+ // context.ts file
+   const myContext = createContext<[string, React.Dispatch<React.SetStateAction<string>>]>(["", () => {}]); // blank string with blank values
+ ```
+<br/>
+
+ similarly, you can also store an array in state along with it's setter function to make it available globally . This allows you to update the array from parts (means parts that you allow to accept context, we'll discussed below) of application . See array state example
+
+ ``` javascript
+
+"use client";
    import React {createContext, useState} from "react;
+// will be created in context.ts
 
-   const myContext = createContext<[string, React.Dispatch<React.SetStateAction<string>>]>(); //attached type to context state
+   const myContext = createContext<[string[], React.Dispatch<React.SetStateAction<string[]>>]>(); //attached type to context state
 
 const ContextProvider = ({children}:{children:React.ReactNode}) => {
 
-    const [nameState, setNameState] = useState<string>("muhammad affan"); // "nameState" state with setter function "setNameState"
+    const [nameState, setNameState] = useState<string[]>(["Muhammad affan","Ayan majeed", "Ibad uddin"]); // "nameState" state with setter function "setNameState"
 
     return (
         <myContext.provider value={
@@ -220,39 +283,56 @@ const ContextProvider = ({children}:{children:React.ReactNode}) => {
 export default ContextProvider;
  ```
 
-Here:
- <ul>
-  <li>The context will accept the explicit types in the form of tuples as <[string, React.Dispatch<span><</span>React.SetStateAction<span><</span>string>>]>();</li>
- <li>First <b>string</b> type indicates that the state only contains string typed data</li>
- <li><b>React.SetStateAction<></b> type along with <b>string</b> indicates that the setter function will update the value of state only when it is string </li>
- <li><b>React.Dispatch<></b> with <b>React.SetStateAction<span><</span>string></b> type indicates that the value of context is to be updated with the help of setter function that will update the value of state only when it is string </li>
- </ul>
+ In this context , the state contains an array of names of some students and a setter function to update the list of these students. You can also store an object in it as 
 
-<br/>
-<br/>
+```javascript
+"use client";
+   import React {createContext, useState} from "react;
+// will be created in context.ts
+interface Student {
+    name:string;
+    age:number;
+    subject:string;
+}
 
- also assign the array of blank value with blank string  or any type of data to the context as 
+   const myContext = createContext<[Student, React.Dispatch<React.SetStateAction<Student>>]>({}); //attached type "Student" and initialize the context with a blank object "{}" 
 
- ``` javascript
- const myContext = createContext<[string, React.Dispatch<React.SetStateAction<string>>]>(["", () => {}]);
- ```
+const ContextProvider = ({children}:{children:React.ReactNode}) => {
 
- <br/>
- <br/>
- <br/>
+    const [StudentData, setStudentData] = useState<Student>(
+        {
+            name:"Muhammad Affan",
+            age:10,
+            subject:"Mathematics",
+        }
+    ); // "StudentData" state with setter function "setStudentData" 
+
+    return (
+        <myContext.provider value={
+            [nameState, setNameState] // passed an array of state along with it's setter function
+            }>
+        {childrens}
+        </myContext.provider>
+    )
+}
+export default ContextProvider;
+```
+Weather the context will contains a primitive or any non-primitive data type in it, it has to be updated similarly as the corresponding updating methods in useState() hook 
+
 now your final code will look like this
 
 ``` javascript
+"use client";
    import React {createContext, useState} from "react;
-
-   const myContext = createContext<[string, React.Dispatch<React.SetStateAction<string>>]>(); //tuple type to context which contains state type and setter function type
+// will be created in context.ts
+   const myContext = createContext<[string, React.Dispatch<React.SetStateAction<string>>]>(["", () => {}]); //attached type and initialized with blank values
 
 const ContextProvider = ({children}:{children:React.ReactNode}) => {  // type of childrens is React.ReactNode
 
     const [nameState, setNameState] = useState<string>("muhammad affan"); // "nameState" state with setter function "setNameState" the context will store this state
 
     return (
-        {/*provider function tag with value that should be provided to the childrens*/}
+        {/*provider function tag with value containing array of data in state and setter function of useState that should be provided to the childrens to interact with the state*/}
         <myContext.provider value={
             [nameState, setNameState] // passed an array of state along with it's setter function
             }>
@@ -263,13 +343,12 @@ const ContextProvider = ({children}:{children:React.ReactNode}) => {  // type of
 export default ContextProvider;
  ```
 
- now in your root layout import the <b>ContextProvider</b> and wrap the entire return statement with <span><</span>ContextProvider></span><span><</span>/ContextProvider></span> tag so that your layout.tsx should look like this
-
-
+ ## Making It Globally Available
+ Now in your root layout import the <b>ContextProvider</b> and wrap the entire return statement with <span><</span>ContextProvider></span><span><</span>/ContextProvider></span> tag so that your layout.tsx should look like this
 
  ``` javascript
 import type { Metadata } from "next";
-import ContextProvider from "./Context.tsx";
+import ContextProvider from "./Context.tsx";  // importing the context component
 
 import "./globals.css";
 
@@ -285,7 +364,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-    <ContextProvider>
+    <ContextProvider> {/* Wrap the components in it so that the data should be shared between the wrapped components*/}
         <div>
         {children}
         </div>
@@ -358,4 +437,10 @@ const changeUser = () => {
 }
  ```
 
- The component above is rendering name muhammad affan along with button to change user using <b> changeUser </b>  function . you can import it in any other component using useContext hook and get the value in global state as well as the provided setter function allows you to change the value from any of your component 
+ The component above is rendering name muhammad affan along with button to change user using <b> changeUser </b>  function . you can import it in any other component using useContext hook and get the value in global state as well as the provided setter function allows you to change the value from any of your component wrapped in the <span><</span>ContextProvider>
+
+ ## Best Practices:
+ 
+ <ol>
+ <li>Wrap only those selected components in <span><</span>ContextProvider> tag to restrict the flow of data and avoid unnessessary data shared across components </li>
+ </ol>
