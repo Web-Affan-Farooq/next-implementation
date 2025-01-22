@@ -29,7 +29,6 @@ generating metadata
 usestate 
 useffect
 useref
-usecontext
 usecallback
 suspense
 api routes and endpoints
