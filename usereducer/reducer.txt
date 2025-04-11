@@ -1,0 +1,112 @@
+import { useReducer, useState } from "react";
+
+// {
+//   id:Math.floor(Math.random())*10 +1,
+//   title:"",
+//   description:"",
+//   completed:false,
+//   createdAt:"",
+//   dueDate:""
+// }
+interface Todo {
+  id:number;
+  title:string;
+  description:string;
+  completed:boolean;
+  createdAt:string;
+  dueDate:string;
+}
+interface Action {
+  type:string;
+  content : {
+    id:number,
+    title:string,
+    description:string,
+    completed:boolean,
+    createdAt:string,
+    dueDate:string,
+  }
+}
+
+const data:Todo[] = [];
+
+const reducer = (state : Todo[], action:Action):Todo[] => {
+  if(action.type === "add") {
+    return [...state, action.content]
+  }
+  else if(action.type === "del") {
+    const filtered = state.filter((todo:Todo) => {
+      return todo.id !== action.content.id
+    })
+    return state = filtered
+  }
+  return state;
+}
+const App = () => {
+  const [todos, dispatch] = useReducer(reducer,data ) // [ {}, {}, {}]
+  const [title, settitle] = useState<string>("")
+  const [description, setdescription] = useState<string>("")
+  const [dueDate, setdueDate] = useState<string>("")
+
+  let date = new Date()
+  // console.log(date.getDate());
+  // console.log(date.getFullYear());
+  // console.log(date.getMonth()+1);
+
+  let string = ""
+  if(date.getMonth() <10) {
+    string = String(date.getFullYear() )+ "-0" + String(date.getMonth()+1) +"-"+ String(date.getDate())
+  } else {
+    string = String(date.getFullYear() )+ "-" + String( date.getMonth()) +"-"+ String(date.getDate())
+  }
+  
+  return (
+    <div>
+      <h1>List</h1>
+      <input type="text" name="" placeholder="Enter title" onChange={(e) => {
+        settitle(e.target.value)
+      }}/>
+      <textarea name="description" id="description" placeholder="Enter description" onChange={(e) => {
+        setdescription(e.target.value)
+      }}></textarea>
+      <input type="date" onChange={(e) => {
+        setdueDate(e.target.value)
+      }} />
+      <button type="button" onClick={() => {
+        dispatch({type:"add", content : {
+          id:Math.floor(Math.random())*10+1,
+          title:title,
+          description:description,
+          completed:false,
+          createdAt:string,
+          dueDate:dueDate,
+        }})
+      }}>Add</button>
+      <br /><br /><br />
+      <ul>
+        {
+          todos.map((todo,index) => {
+            return <div style={{border:"2px solid black"}} key={index}>
+              <span contentEditable={true}>{todo.title}</span><br />
+              <span contentEditable={true}>{todo.description}</span><br />
+              <span contentEditable={true}>{String(todo.completed)}</span><br />
+              <span contentEditable={true}>{todo.createdAt}</span><br />
+              <span contentEditable={true}>{todo.dueDate}</span><br />
+              <span contentEditable={true}>{todo.id}</span><br />
+              <button type="button" onClick={() => {
+                dispatch({type:"del", content: todo})
+              }}>delete</button>
+            </div>
+          })
+        }
+      </ul>
+    </div>
+  )
+}
+
+export default App
+
+// todo app 
+// add 
+// delete 
+// update 

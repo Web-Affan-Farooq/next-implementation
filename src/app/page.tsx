@@ -46,31 +46,31 @@
 //     }
 //   }
 
-//   const addUser = async () => {  // fix error 
-//     let newUser:Iuser = {
-//       username:"New user",
-//       id:21,
-//       email:"newemail.gmail.com"
-//     };
+  // const addUser = async () => {  // fix error 
+  //   let newUser:Iuser = {
+  //     username:"New user",
+  //     id:21,
+  //     email:"newemail.gmail.com"
+  //   };
 
-//     try {
-//       const request = await fetch("/api/add-users", {
-//         method:"POST",
-//         headers: {
-//           "Content-Type":"application/json"
-//         },
-//         body:JSON.stringify(newUser)
-//       });
-//       const response = await request.json();
-//       console.log(response);
-//       let {apiData, apiResponse} = response;
+  //   try {
+  //     const request = await fetch("/api/add-users", {
+  //       method:"POST",
+  //       headers: {
+  //         "Content-Type":"application/json"
+  //       },
+  //       body:JSON.stringify(newUser)
+  //     });
+  //     const response = await request.json();
+  //     console.log(response);
+  //     let {apiData, apiResponse} = response;
       
-//     }
-//     catch(err) {
-//       console.error(err);
-//     }
+  //   }
+  //   catch(err) {
+  //     console.error(err);
+  //   }
 
-//   }
+  // }
 
 //   // useEffect(() => {
 //   // console.log(users);

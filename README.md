@@ -20,12 +20,10 @@ shipment API with delivery charges and live product tracker from aliExpress, eas
 payment integration and authentication is not required
 remaining:
 
-sanity
-axios
-redux 
-zustand
-zod
-generating metadata
+Sanity
+Axios 
+Zustand
+Generating metadata
 usestate 
 useffect
 useref
